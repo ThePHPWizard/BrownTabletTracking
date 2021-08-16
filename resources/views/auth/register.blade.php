@@ -1,77 +1,95 @@
-@extends('layouts.app')
+@extends('layouts.auth')
 
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Register') }}</div>
+    <div class="container">
 
-                <div class="card-body">
-                    <form method="POST" action="{{ route('register') }}">
-                        @csrf
-
-                        <div class="form-group row">
-                            <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Name') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
-
-                                @error('name')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
+        <div col-md-5>
+            <div class="login-box card">
+                <form method="POST" action="/register">
+                    {{ csrf_field() }}
+                    <div class="card-body">
+                        <div class="text-center"><img src="./images/atlas-ecards-logo.png" width="250px"></div>
+                        <h3 class="box-title m-b-20">Registration</h3>
+                        <div class="form-group{{ $errors->has('company_name') ? ' has-error' : '' }} row">
+                            <!--<label for="name" class="col-md-4 control-label">Name</label>-->
+                            <div class="col-md-12">
+                                <input id="company_name" type="text" placeholder="Company Name" class="form-control"
+                                       name="company_name" value="{{ old('companyname') }}" required
+                                       autofocus>
+                                @if ($errors->has('company_name'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('company_name') }}</strong>
                                     </span>
-                                @enderror
+                                @endif
                             </div>
                         </div>
 
-                        <div class="form-group row">
-                            <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email">
-
-                                @error('email')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
+                        <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }} row">
+                            <!--<label for="name" class="col-md-4 control-label">Name</label>-->
+                            <div class="col-md-12">
+                                <input id="name" type="text" placeholder="Name" class="form-control" name="name"
+                                       value="{{ old('name') }}" required
+                                >
+                                @if ($errors->has('name'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('name') }}</strong>
                                     </span>
-                                @enderror
+                                @endif
                             </div>
                         </div>
+                        <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }} row">
+                            <!--<label for="email" class="col-md-4 control-label">E-Mail Address</label>-->
+                            <div class="col-md-12">
+                                <input id="email" type="email" placeholder="Email" class="form-control" name="email"
+                                       value="{{ old('email') }}" required>
 
-                        <div class="form-group row">
-                            <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
-
-                                @error('password')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
+                                @if ($errors->has('email'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('email') }}</strong>
                                     </span>
-                                @enderror
+                                @endif
                             </div>
                         </div>
+                        <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }} row">
+                            <!--<label for="password" class="col-md-4 control-label">Password</label>-->
+                            <div class="col-md-12">
+                                <input id="password" type="password" placeholder="Password" class="form-control"
+                                       name="password" required>
 
+                                @if ($errors->has('password'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('password') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
                         <div class="form-group row">
-                            <label for="password-confirm" class="col-md-4 col-form-label text-md-right">{{ __('Confirm Password') }}</label>
+                            <!--<label for="password-confirm" class="col-md-4 control-label">Confirm Password</label>-->
+                            <div class="col-md-12">
+                                <input id="password-confirm" type="password" placeholder="Confirm Password"
+                                       class="form-control" name="password_confirmation" required>
 
-                            <div class="col-md-6">
-                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
                             </div>
                         </div>
-
-                        <div class="form-group row mb-0">
-                            <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
-                                    {{ __('Register') }}
+                        <div class="form-group row">
+                            <div class="col-md-12">
+                                <button type="submit" class="btn btn-primary btn-lg col-md-12">
+                                    Register
                                 </button>
                             </div>
                         </div>
-                    </form>
-                </div>
+
+                        <div class="form-group row">
+                            <div class="col-md-12">If you are already registered<a href='/login'>
+                                    <button type="button" class="btn btn-link">
+                                        Login Here
+                                    </button>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
-</div>
 @endsection

@@ -13,10 +13,25 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+
+    Route::get('/home', function () {
+        return redirect('/');
+    });
 
 Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');
+    
+    Route::group(['middleware' => ['auth']], function () {
+        
+        Route::get('/', 'HomeController@dashboard');
+    
+        // Automated Tasks
+        Route::get('/tablets', 'TabletController@index');
+        Route::get('/tablets/create', 'TabletController@create');
+        Route::post('/tablets/create', 'TabletController@store');
+        Route::get('/tablets/{id}/edit', 'TabletController@edit');
+        Route::post('/tablets/{id}', 'TabletController@update');
+        Route::get('/tablets/{id}/manage', 'TabletController@manage');
+        Route::get('/tablets/delete/{id}', 'TabletController@destroy');
+    
+    
+    });
