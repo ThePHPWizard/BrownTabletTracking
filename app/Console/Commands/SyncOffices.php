@@ -44,7 +44,7 @@ class SyncOffices extends Command
     
         foreach ($offices as $office) {
             echo 'Processing ' . $office->Tab_City . ', ' . $office->Tab_City . "\n";
-            $check = Tablet::where('city', $office->Tab_City)->where('state', $office->Tab_City)->first();
+            $check = Office::where('city', $office->Tab_City)->where('state', $office->Tab_City)->first();
             
             if (empty($check)) {
                 $new_office = new Office();
