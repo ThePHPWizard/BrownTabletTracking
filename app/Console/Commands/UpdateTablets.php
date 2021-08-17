@@ -41,8 +41,10 @@ class UpdateTablets extends Command
     {
         function test(){
             $tablets = DB::connection('sqlsrv')->table('OmniTracs_TabletInventory')->get();
+            echo 'Found ' . count($tablets) . ' tablets!' . "\n";
             
             foreach ($tablets as $tablet){
+                echo 'Processing ' . $tablet->Tab_Phone . "\n";
                 $imei = preg_replace('/[^0-9]/', '', $tablet->Tab_IMEI);
                 $mobile_number = preg_replace('/[^0-9]/', '', $tablet->Tab_Phone);
                 $check = Tablet::where('phone_number', $mobile_number)->where('imei', $imei)->first();
@@ -61,6 +63,7 @@ class UpdateTablets extends Command
                     
                 }
             }
+            echo 'Complete '."\n";
         }
     }
 }
