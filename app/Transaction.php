@@ -15,4 +15,9 @@ class Transaction extends Model
     {
         return $this->belongsTo('App\User');
     }
+    
+    public function tablet()
+    {
+        return $this->belongsTo('App\Tablet');
+    }
 }

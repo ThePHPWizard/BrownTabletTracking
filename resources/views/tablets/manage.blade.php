@@ -17,7 +17,6 @@
                         </div>
                         <div class="card-body" style="margin-top: -20px">
                             <div class="row">
-                                <div class="col-md-4"><strong>Name:</strong> {{ $tablet->name }}</div>
                                 <div class="col-md-4"><strong>Mobile Number:</strong> {{ $tablet->mobile_number }}</div>
                                 <div class="col-md-4"><strong>IMEI:</strong> {{ $tablet->imei }}</div>
                                 <div class="col-md-4"><strong>Status:</strong> {{ $tablet->status }}</div>
@@ -82,19 +81,17 @@
                                         <div id="location"
                                              @if($tablet->status === 'Out Of Service' || $tablet->status === 'In Inventory')style="display: block"
                                              @else style="display: none;" @endif>
-                                            <label>Location:</label><br>
+                                            <label>Drop Location:</label><br>
                                             <select id="location_q" class="form-control"
-                                                    name="location">
+                                                    name="office_id">
                                                 <option value="">Please Select...</option>
-                                                <option value="Drop Location"
-                                                        @if($tablet->location === 'Drop Location') selected="selected" @endif>
-                                                    Drop Location
-                                                </option>
-                                                <option
-                                                    value="Terminal Or Office"
-                                                    @if($tablet->location === 'Terminal Or Office') selected="selected" @endif>
-                                                    Terminal Or Office
-                                                </option>
+                                                @foreach($offices as $office)
+                                                    <option
+                                                        value="{{ $office->id }}"
+                                                        @if($tablet->office_id === $office->id) selected="selected" @endif>
+                                                        {{ $office->city }}, {{ $office->state }}
+                                                    </option>
+                                                @endforeach
                                             </select>
                                         </div>
                                     </div>
@@ -112,8 +109,8 @@
                                                 @foreach($trucks as $truck)
                                                     <option value="{{ $truck->id }}"
                                                             @if($truck->id === $tablet->truck_id) selected="selected" @endif>
-                                                        Plate
-                                                        Number: {{ $truck->license_plate }}
+                                                        Truck
+                                                        Number: {{ $truck->vehicle_id }}
                                                     </option>
                                                 @endforeach
                                             </select>
@@ -151,16 +148,16 @@
                             <tbody id="tablecontents">
                             @foreach($tablet->transactions as $transaction)
                                 <tr>
-                                <td>{{ $transaction->created_at }}</td>
-                                <td>{{ $transaction->user->name }}</td>
-                                <td>{{ $transaction->status }}</td>
-                                @if($transaction->status === 'On Truck')
-                                        <td>Plate Number: {{ $transaction->truck->license_plate }}</td>
-                                @else
+                                    <td>{{ $transaction->created_at }}</td>
+                                    <td>{{ $transaction->user->name }}</td>
+                                    <td>{{ $transaction->status }}</td>
+                                    @if($transaction->status === 'On Truck')
+                                        <td>Truck Number: {{ $transaction->truck->vehicle_id }}</td>
+                                    @else
                                         <td>{{ $transaction->location }}</td>
-                                @endif
+                                    @endif
 
-                                <td>{{ $transaction->note }}</td>
+                                    <td>{{ $transaction->note }}</td>
                                 </tr>
                             @endforeach
                             </tbody>
