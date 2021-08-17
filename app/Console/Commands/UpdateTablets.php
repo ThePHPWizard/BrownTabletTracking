@@ -46,7 +46,7 @@
                 echo 'Processing ' . $tablet->Tab_Phone . "\n";
                 $imei = preg_replace('/[^0-9]/', '', $tablet->Tab_IMEI);
                 $mobile_number = preg_replace('/[^0-9]/', '', $tablet->Tab_Phone);
-                $check = Tablet::where('phone_number', $mobile_number)->where('imei', $imei)->first();
+                $check = Tablet::where('mobile_number', $mobile_number)->where('imei', $imei)->first();
                 if (empty($check)) {
                     $new_tablet = new Tablet();
                     
