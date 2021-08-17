@@ -16,7 +16,7 @@ class AddFieldsToTablets extends Migration
         Schema::table('tablets', function (Blueprint $table) {
             $table->string('status')->after('truck_id')->nullable();
             $table->integer('office_id')->after('status')->nullable();
-            $table->integer('created_by')->after('office_id')->nullable();
+            $table->string('created_by')->after('office_id')->nullable();
         });
     }
 

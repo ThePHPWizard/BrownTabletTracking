@@ -17,7 +17,7 @@
                         </div>
                         <div class="card-body" style="margin-top: -20px">
                             <div class="row">
-                                <div class="col-md-4"><strong>Mobile Number:</strong> {{ $tablet->mobile_number }}</div>
+                                <div class="col-md-4"><strong>Mobile Number:</strong> {{ '('.substr($tablet->mobile_number, 0, 3).') '.substr($tablet->mobile_number, 3, 3).'-'.substr($tablet->mobile_number,6) }}</div>
                                 <div class="col-md-4"><strong>IMEI:</strong> {{ $tablet->imei }}</div>
                                 <div class="col-md-4"><strong>Status:</strong> {{ $tablet->status }}</div>
                             </div>

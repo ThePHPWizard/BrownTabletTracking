@@ -26,7 +26,7 @@
                                 <tbody>
                                 @foreach($tablets as $tablet)
                                     <tr>
-                                        <td>{{ $tablet->mobile_number }}</td>
+                                        <td>{{ '('.substr($tablet->mobile_number, 0, 3).') '.substr($tablet->mobile_number, 3, 3).'-'.substr($tablet->mobile_number,6) }}</td>
                                         <td>{{ $tablet->imei }}</td>
                                         <td>{{ $tablet->status }}</td>
                                         @if(isset($tablet->truck))
