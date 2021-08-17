@@ -12,7 +12,7 @@ class SyncTransactions extends Command
      *
      * @var string
      */
-    protected $signature = 'command:name';
+    protected $signature = 'sync:transactions';
 
     /**
      * The console command description.

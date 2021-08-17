@@ -13,7 +13,7 @@ class UpdateTablets extends Command
      *
      * @var string
      */
-    protected $signature = 'command:name';
+    protected $signature = 'update:tablets';
 
     /**
      * The console command description.
