@@ -51,7 +51,6 @@
                     $new_tablet = new Tablet();
                     
                     $new_tablet->imei = $imei;
-                    $new_tablet->name = $imei;
                     $new_tablet->mobile_number = $mobile_number;
                     $new_tablet->truck_id = null;
                     $new_tablet->status = 'New';
