@@ -12,7 +12,7 @@ class SyncOffices extends Command
      *
      * @var string
      */
-    protected $signature = 'command:name';
+    protected $signature = 'sync:offices';
 
     /**
      * The console command description.
@@ -56,6 +56,5 @@ class SyncOffices extends Command
             }
         }
         echo 'Complete ' . "\n";
-    }
     }
 }
