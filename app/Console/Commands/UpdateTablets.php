@@ -1,56 +1,55 @@
 <?php
-
-namespace App\Console\Commands;
-
-use App\Tablet;
-use Illuminate\Console\Command;
-use DB;
-
-class UpdateTablets extends Command
-{
-    /**
-     * The name and signature of the console command.
-     *
-     * @var string
-     */
-    protected $signature = 'update:tablets';
-
-    /**
-     * The console command description.
-     *
-     * @var string
-     */
-    protected $description = 'Command description';
-
-    /**
-     * Create a new command instance.
-     *
-     * @return void
-     */
-    public function __construct()
+    
+    namespace App\Console\Commands;
+    
+    use App\Tablet;
+    use Illuminate\Console\Command;
+    use DB;
+    
+    class UpdateTablets extends Command
     {
-        parent::__construct();
-    }
-
-    /**
-     * Execute the console command.
-     *
-     * @return int
-     */
-    public function handle()
-    {
-        function test(){
+        /**
+         * The name and signature of the console command.
+         *
+         * @var string
+         */
+        protected $signature = 'update:tablets';
+        
+        /**
+         * The console command description.
+         *
+         * @var string
+         */
+        protected $description = 'Command description';
+        
+        /**
+         * Create a new command instance.
+         *
+         * @return void
+         */
+        public function __construct()
+        {
+            parent::__construct();
+        }
+        
+        /**
+         * Execute the console command.
+         *
+         * @return int
+         */
+        public function handle()
+        {
             $tablets = DB::connection('sqlsrv')->table('OmniTracs_TabletInventory')->get();
             echo 'Found ' . count($tablets) . ' tablets!' . "\n";
             
-            foreach ($tablets as $tablet){
+            foreach ($tablets as $tablet) {
                 echo 'Processing ' . $tablet->Tab_Phone . "\n";
                 $imei = preg_replace('/[^0-9]/', '', $tablet->Tab_IMEI);
                 $mobile_number = preg_replace('/[^0-9]/', '', $tablet->Tab_Phone);
                 $check = Tablet::where('phone_number', $mobile_number)->where('imei', $imei)->first();
-                if (empty($check)){
+                if (empty($check)) {
                     $new_tablet = new Tablet();
-                   
+                    
                     $new_tablet->imei = $imei;
                     $new_tablet->name = $imei;
                     $new_tablet->mobile_number = $mobile_number;
@@ -63,7 +62,6 @@ class UpdateTablets extends Command
                     
                 }
             }
-            echo 'Complete '."\n";
+            echo 'Complete ' . "\n";
         }
     }
-}
