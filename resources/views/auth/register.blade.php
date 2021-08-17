@@ -8,21 +8,8 @@
                 <form method="POST" action="/register">
                     {{ csrf_field() }}
                     <div class="card-body">
-                        <div class="text-center"><img src="./images/atlas-ecards-logo.png" width="250px"></div>
+                        <div class="text-center"><img src="./images/logo.png" width="250px"></div>
                         <h3 class="box-title m-b-20">Registration</h3>
-                        <div class="form-group{{ $errors->has('company_name') ? ' has-error' : '' }} row">
-                            <!--<label for="name" class="col-md-4 control-label">Name</label>-->
-                            <div class="col-md-12">
-                                <input id="company_name" type="text" placeholder="Company Name" class="form-control"
-                                       name="company_name" value="{{ old('companyname') }}" required
-                                       autofocus>
-                                @if ($errors->has('company_name'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('company_name') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
 
                         <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }} row">
                             <!--<label for="name" class="col-md-4 control-label">Name</label>-->
