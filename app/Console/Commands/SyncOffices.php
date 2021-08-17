@@ -4,6 +4,7 @@ namespace App\Console\Commands;
 
 use App\Office;
 use Illuminate\Console\Command;
+use DB;
 
 class SyncOffices extends Command
 {
