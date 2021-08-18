@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\FormBuilder;
 use App\Tablet;
+use App\Truck;
 use App\Upload;
 use App\User;
 use Illuminate\Http\Request;
