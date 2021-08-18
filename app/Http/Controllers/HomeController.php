@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\FormBuilder;
+use App\Tablet;
 use App\Upload;
+use App\User;
 use Illuminate\Http\Request;
 use Auth;
 
@@ -26,7 +28,12 @@ class HomeController extends Controller
      */
     public function dashboard()
     {
-        return view('dashboards.index');
+        $tablets = count(Tablet::all());
+        $trucks = count(Truck::all());
+        $users = count(User::all());
+        $disabled_tablets = count(Tablet::where('status', 'Out Of Service')->get());
+        
+        return view('dashboards.index', compact('tablets', 'trucks', 'users', 'disabled_tablets'));
     }
     
     public function career_exploration()
