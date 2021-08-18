@@ -44,13 +44,13 @@ class SyncOffices extends Command
     
         foreach ($offices as $office) {
             echo 'Processing ' . $office->Tab_City . ', ' . $office->Tab_City . "\n";
-            $check = Office::where('city', $office->Tab_City)->where('state', $office->Tab_City)->first();
+            $check = Office::where('city', $office->Tab_City)->where('state', $office->Tab_State)->first();
             
             if (empty($check)) {
                 $new_office = new Office();
     
                 $new_office->city = $office->Tab_City;
-                $new_office->state = $office->Tab_City;
+                $new_office->state = $office->Tab_State;
     
                 $new_office->save();
             
