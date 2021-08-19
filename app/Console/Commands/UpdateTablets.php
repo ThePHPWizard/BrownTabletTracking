@@ -49,9 +49,11 @@
                 $imei = preg_replace('/[^0-9]/', '', $tablet->Tab_IMEI);
                 $mobile_number = preg_replace('/[^0-9]/', '', $tablet->Tab_Phone);
                 $tablet_location = explode(' ', $tablet->Tab_Location);
-                Log::debug($tablet->Tab_Location . "\n");
-                Log::debug($tablet_location[0] . "\n");
-                Log::debug($tablet_location[1] . "\n");
+                if ($tablet->Tab_Status === 'In-Inventory'){
+                    $status = 'In Inventory';
+                } else {
+                    $status = $tablet->Tab_Status;
+                }
                 $location = Office::where('city', $tablet_location[0])->where('state', $tablet_location[1])->first();
                 $check = Tablet::where('mobile_number', $mobile_number)->where('imei', $imei)->first();
                 if (empty($check)) {
@@ -60,7 +62,7 @@
                     $new_tablet->imei = $imei;
                     $new_tablet->mobile_number = $mobile_number;
                     $new_tablet->truck_id = null;
-                    $new_tablet->status = $tablet->Tab_Status;
+                    $new_tablet->status = $status;
                     $new_tablet->office_id = $location->id;
                     $new_tablet->created_by = 'System';
                     
