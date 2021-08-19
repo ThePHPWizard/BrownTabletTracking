@@ -6,6 +6,7 @@
     use App\Tablet;
     use Illuminate\Console\Command;
     use DB;
+    use Log;
     
     class UpdateTablets extends Command
     {
