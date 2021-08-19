@@ -48,7 +48,10 @@
                 $imei = preg_replace('/[^0-9]/', '', $tablet->Tab_IMEI);
                 $mobile_number = preg_replace('/[^0-9]/', '', $tablet->Tab_Phone);
                 $tablet_location = explode(' ', $tablet->Tab_Location);
-                $location = Office::where('city', $tablet_location[0])->where('state', [1])->first();
+                Log::debug($tablet->Tab_Location . "\n");
+                Log::debug($tablet_location[0] . "\n");
+                Log::debug($tablet_location[1] . "\n");
+                $location = Office::where('city', $tablet_location[0])->where('state', $tablet_location[1])->first();
                 $check = Tablet::where('mobile_number', $mobile_number)->where('imei', $imei)->first();
                 if (empty($check)) {
                     $new_tablet = new Tablet();
