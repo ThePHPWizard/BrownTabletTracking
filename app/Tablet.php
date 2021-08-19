@@ -15,4 +15,9 @@ class Tablet extends Model
     {
         return $this->hasMany('App\Transaction')->orderBy('id', 'desc');
     }
+    
+    public function office()
+    {
+        return $this->belongsTo('App\Office')->orderBy('id', 'desc');
+    }
 }

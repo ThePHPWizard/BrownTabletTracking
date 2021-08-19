@@ -32,7 +32,11 @@
                                         @if(isset($tablet->truck))
                                             <td>Vehicle Number: {{ $tablet->truck->vehicle_id }}</td>
                                         @else
-                                            <td>{{ $tablet->location }}</td>
+                                            @if(isset($tablet->office))
+                                                <td>{{ $tablet->office->city }}, {{ $tablet->office->state }}</td>
+                                            @else
+                                                <td></td>
+                                            @endif
                                         @endif
                                         <td>
                                             <a href="/tablets/{{ $tablet->id }}/manage"

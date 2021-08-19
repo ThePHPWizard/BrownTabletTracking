@@ -15,7 +15,7 @@ class TabletController extends Controller
     public function index()
     {
         $user = Auth::user();
-        $tablets = Tablet::with('transactions', 'truck')->get();
+        $tablets = Tablet::with('transactions', 'truck', 'office')->get();
         $trucks = Truck::all();
         
         return view('tablets.index', compact('user', 'tablets', 'trucks'));
