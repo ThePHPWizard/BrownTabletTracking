@@ -58,7 +58,7 @@ class SyncTransactions extends Command
                 'Tab_UpdateWhen' => date('Y-m-d H:i:s', strtotime(Carbon::now()))
             ]);
             
-            $transaction->status = 'Delivered';
+            $transaction->sync_status = 'Delivered';
             $transaction->save();
             
         }
