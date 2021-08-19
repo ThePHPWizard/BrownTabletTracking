@@ -27,8 +27,8 @@ class Kernel extends ConsoleKernel
         // $schedule->command('inspire')->hourly();
         $schedule->command('sync:offices')->everyMinute();
         $schedule->command('sync:transactions')->everyMinute();
-        $schedule->command('sync:trucks')->everyMinute();
-        $schedule->command('update:tablets')->dailyAt('00:00');
+        $schedule->command('sync:trucks')->dailyAt('00:00');
+        $schedule->command('update:tablets')->everyMinute();
     }
 
     /**
