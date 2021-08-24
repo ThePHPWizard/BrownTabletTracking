@@ -26,8 +26,12 @@ class TabletController extends Controller
         $tablet = Tablet::with('transactions', 'truck', 'transactions.user', 'transactions.truck')->where('id', $id)->first();
         $trucks = Truck::all();
         $offices = Office::all();
+        $transactions = DB::connection('sqlsrv')
+            ->table('OmniTracs_TabletInventoryHist')
+            ->where('Tab_IMEI', $tablet->imei)
+            ->get();
         
-        return view('tablets.manage', compact('tablet', 'trucks', 'offices'));
+        return view('tablets.manage', compact('tablet', 'trucks', 'offices', 'transactions'));
     }
     
     public function create()
