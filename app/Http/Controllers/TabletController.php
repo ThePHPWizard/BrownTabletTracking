@@ -9,6 +9,7 @@ use App\Truck;
 use Illuminate\Http\Request;
 use Auth;
 use Toastr;
+use DB;
 
 class TabletController extends Controller
 {
