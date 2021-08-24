@@ -142,7 +142,6 @@
                                 <th>User</th>
                                 <th>Status</th>
                                 <th>Truck/Location</th>
-                                <th>Description</th>
                             </tr>
                             </thead>
                             <tbody id="tablecontents">
