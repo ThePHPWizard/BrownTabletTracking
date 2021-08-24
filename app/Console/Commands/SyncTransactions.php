@@ -63,7 +63,7 @@ class SyncTransactions extends Command
                 ->get();
     
             print_r(response()->json($test));
-             
+            
             $transaction->sync_status = 'Delivered';
             $transaction->save();
             

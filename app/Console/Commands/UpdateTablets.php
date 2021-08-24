@@ -48,15 +48,18 @@
                 echo 'Processing ' . $tablet->Tab_Phone . "\n";
                 $imei = preg_replace('/[^0-9]/', '', $tablet->Tab_IMEI);
                 $mobile_number = preg_replace('/[^0-9]/', '', $tablet->Tab_Phone);
-                $tablet_location = explode(' ', $tablet->Tab_Location);
-                if ($tablet->Tab_Status === 'In-Inventory'){
-                    $status = 'In Inventory';
-                } else {
-                    $status = $tablet->Tab_Status;
-                }
-                $location = Office::where('city', $tablet_location[0])->where('state', $tablet_location[1])->first();
                 $check = Tablet::where('mobile_number', $mobile_number)->where('imei', $imei)->first();
                 if (empty($check)) {
+                    
+                    $tablet_location = explode(' ', $tablet->Tab_Location);
+                    if ($tablet->Tab_Status === 'In-Inventory') {
+                        $status = 'In Inventory';
+                    } else {
+                        $status = $tablet->Tab_Status;
+                    }
+                    $location = Office::where('city', $tablet_location[0])->where('state', $tablet_location[1])->first();
+                    
+                    
                     $new_tablet = new Tablet();
                     
                     $new_tablet->imei = $imei;
