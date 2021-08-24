@@ -147,7 +147,7 @@
                             <tbody id="tablecontents">
                             @foreach($transactions as $transaction)
                                 <tr>
-                                    <td>{{ $transaction->Tab_UpdateWhen }}</td>
+                                    <td>{{ date('F d, Y g:i A', strtotime($transaction->Tab_UpdateWhen)) }}</td>
                                     <td>{{ $transaction->Tab_UpdateBy }}</td>
                                     <td>{{ $transaction->Tab_Status }}</td>
                                     <td>{{ $transaction->Tab_Location }}</td>
