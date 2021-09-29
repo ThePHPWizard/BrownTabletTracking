@@ -29,7 +29,7 @@ class TabletController extends Controller
         $offices = Office::all();
         $transactions = DB::connection('sqlsrv')
             ->table('OmniTracs_TabletInventoryHist')
-            ->where('Tab_Phone', $tablet->mobile_number)
+            ->where('Tab_IMEI', $tablet->imei)
             ->get();
         
         return view('tablets.manage', compact('tablet', 'trucks', 'offices', 'transactions'));
