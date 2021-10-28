@@ -49,14 +49,20 @@ class SyncTransactions extends Command
             } else {
                 $location = $transaction->location;
             }
-    
+            
             DB::connection('sqlsrv')->table('OmniTracs_TabletInventoryUpdate')->insert([
                 'Tab_Phone' => $transaction->tablet->mobile_number,
                 'Tab_Status' => $transaction->status,
                 'Tab_Location' => $location,
                 'Tab_UpdateBy' => $transaction->user->name,
-                'Tab_UpdateWhen' => date('Y-m-d H:i:s', strtotime(Carbon::now()))
+                'Tab_UpdateWhen' => date('Y-m-d H:i:s', strtotime(Carbon::now())) . '.000'
             ]);
+    
+            $test = DB::connection('sqlsrv')
+                ->table('OmniTracs_TabletInventoryUpdate')
+                ->get();
+    
+            print_r(response()->json($test));
             
             $transaction->sync_status = 'Delivered';
             $transaction->save();

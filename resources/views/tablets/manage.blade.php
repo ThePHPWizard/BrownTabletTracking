@@ -142,22 +142,15 @@
                                 <th>User</th>
                                 <th>Status</th>
                                 <th>Truck/Location</th>
-                                <th>Description</th>
                             </tr>
                             </thead>
                             <tbody id="tablecontents">
-                            @foreach($tablet->transactions as $transaction)
+                            @foreach($transactions as $transaction)
                                 <tr>
-                                    <td>{{ $transaction->created_at }}</td>
-                                    <td>{{ $transaction->user->name }}</td>
-                                    <td>{{ $transaction->status }}</td>
-                                    @if($transaction->status === 'On Truck')
-                                        <td>Truck Number: {{ $transaction->truck->vehicle_id }}</td>
-                                    @else
-                                        <td>{{ $transaction->location }}</td>
-                                    @endif
-
-                                    <td>{{ $transaction->note }}</td>
+                                    <td>{{ date('F d, Y g:i A', strtotime($transaction->Tab_UpdateWhen)) }}</td>
+                                    <td>{{ $transaction->Tab_UpdateBy }}</td>
+                                    <td>{{ $transaction->Tab_Status }}</td>
+                                    <td>{{ $transaction->Tab_Location }}</td>
                                 </tr>
                             @endforeach
                             </tbody>

@@ -9,6 +9,7 @@ use App\Truck;
 use Illuminate\Http\Request;
 use Auth;
 use Toastr;
+use DB;
 
 class TabletController extends Controller
 {
@@ -26,8 +27,12 @@ class TabletController extends Controller
         $tablet = Tablet::with('transactions', 'truck', 'transactions.user', 'transactions.truck')->where('id', $id)->first();
         $trucks = Truck::all();
         $offices = Office::all();
+        $transactions = DB::connection('sqlsrv')
+            ->table('OmniTracs_TabletInventory')
+            ->where('Tab_IMEI', 'LIKE', '%' . $tablet->imei . '%')
+            ->get();
         
-        return view('tablets.manage', compact('tablet', 'trucks', 'offices'));
+        return view('tablets.manage', compact('tablet', 'trucks', 'offices', 'transactions'));
     }
     
     public function create()
