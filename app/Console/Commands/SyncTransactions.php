@@ -6,6 +6,7 @@ use App\Transaction;
 use Illuminate\Console\Command;
 use DB;
 use Carbon\Carbon;
+use Mail;
 
 class SyncTransactions extends Command
 {
@@ -50,22 +51,46 @@ class SyncTransactions extends Command
                 $location = $transaction->location;
             }
             
-            DB::connection('sqlsrv')->table('OmniTracs_TabletInventoryUpdate')->insert([
-                'Tab_Phone' => $transaction->tablet->mobile_number,
-                'Tab_Status' => $transaction->status,
-                'Tab_Location' => $location,
-                'Tab_UpdateBy' => $transaction->user->name,
-                'Tab_UpdateWhen' => date('Y-m-d H:i:s', strtotime(Carbon::now())) . '.000'
-            ]);
+            if ($transaction->status !== 'On Truck' && $transaction->location === null){
+                if ($transaction->email_sent === null){
+                    Mail::send('emails.sync_failed', ['transaction' => $transaction], function ($message) {
+                        $message->from(env('MAIL_USERNAME'), env('APP_NAME'));
+                        $message->to('thahn@browntrucking.com');
+                        $message->cc('steven.ash@sstech.us');
+                        $message->subject(Carbon::now()->format('Y-m-d') . ' Tablet Sync Error');
+                    });
+                    $transaction->email_sent = 'Yes';
+                    $transaction->save();
+                }
+            } else {
+                if ($transaction->email_sent === null){
+                    Mail::send('emails.sync_failed', ['transaction' => $transaction], function ($message) {
+                        $message->from(env('MAIL_USERNAME'), env('APP_NAME'));
+                        $message->to('thahn@browntrucking.com');
+                        $message->cc('steven.ash@sstech.us');
+                        $message->subject(Carbon::now()->format('Y-m-d') . ' Tablet Sync Error');
+                    });
+                    $transaction->email_sent = 'Yes';
+                    $transaction->save();
+                }
+                DB::connection('sqlsrv')->table('OmniTracs_TabletInventoryUpdate')->insert([
+                    'Tab_Phone' => $transaction->tablet->mobile_number,
+                    'Tab_Status' => $transaction->status,
+                    'Tab_Location' => $location,
+                    'Tab_UpdateBy' => $transaction->user->name,
+                    'Tab_UpdateWhen' => date('Y-m-d H:i:s', strtotime(Carbon::now())) . '.000'
+                ]);
     
-            $test = DB::connection('sqlsrv')
-                ->table('OmniTracs_TabletInventoryUpdate')
-                ->get();
+                $test = DB::connection('sqlsrv')
+                    ->table('OmniTracs_TabletInventoryUpdate')
+                    ->get();
     
-            print_r(response()->json($test));
+                print_r(response()->json($test));
+    
+                $transaction->sync_status = 'Delivered';
+                $transaction->save();
+            }
             
-            $transaction->sync_status = 'Delivered';
-            $transaction->save();
             
         }
     }
