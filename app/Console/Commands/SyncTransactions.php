@@ -63,16 +63,6 @@ class SyncTransactions extends Command
                     $transaction->save();
                 }
             } else {
-                if ($transaction->email_sent === null){
-                    Mail::send('emails.sync_failed', ['transaction' => $transaction], function ($message) {
-                        $message->from(env('MAIL_USERNAME'), env('APP_NAME'));
-                        $message->to('thahn@browntrucking.com');
-                        $message->cc('steven.ash@sstech.us');
-                        $message->subject(Carbon::now()->format('Y-m-d') . ' Tablet Sync Error');
-                    });
-                    $transaction->email_sent = 'Yes';
-                    $transaction->save();
-                }
                 DB::connection('sqlsrv')->table('OmniTracs_TabletInventoryUpdate')->insert([
                     'Tab_Phone' => $transaction->tablet->mobile_number,
                     'Tab_Status' => $transaction->status,

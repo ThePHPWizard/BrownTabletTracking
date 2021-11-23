@@ -348,7 +348,7 @@
                                             {{ $transaction->id }} has an invalid location.
                                         </h3>
                                         <div class="align-center">
-                                            <a href="https://tabletinventory.werbrown.com/{{ $transaction->tablet_id }}/manage" class="btn btn-primary">Open Tablet Manager</a>
+                                            <a href="https://tabletinventory.werbrown.com/tablets/{{ $transaction->tablet_id }}/manage" class="btn btn-primary">Open Tablet Manager</a>
                                         </div>
                                     </td>
                                 </tr>
