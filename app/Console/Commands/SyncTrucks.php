@@ -69,7 +69,7 @@
     
                $vehicle_check = Truck::where('vehicle_id', $vehicle_update['VehicleName'])->first();
     
-               if (is_numeric($vehicle_update['VehicleName']) && !empty($vehicle_update['VehicleName'])) {
+               if (!empty($vehicle_update['VehicleName'])) {
         
                    if (!empty($vehicle_check)) {
                        Log::debug('Update Vehicle');
