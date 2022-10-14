@@ -52,7 +52,7 @@
                 $check = Tablet::where('mobile_number', $mobile_number)->where('imei', $imei)->first();
                 if (empty($check)) {
 
-                    $tablet_location = explode(' ', $tablet->Tab_Location);
+                    $tablet_location = explode(', ', $tablet->Tab_Location);
                     if ($tablet->Tab_Status === 'In-Inventory') {
                         $status = 'In Inventory';
                     } else {
